@@ -13,17 +13,28 @@ exports.handler = async function(event, context) {
 
     switch (event.httpMethod) {
       case 'GET':
-        // Handle read last seen time
-        const lastSeenData = await lastSeenCollection.findOne({});
+        // Handle read last seen time for a specific item
+        const query = event.queryStringParameters;
+        if (!query || !query.itemName) {
+          return { statusCode: 400, body: 'Item name query parameter is required' };
+        }
+        const lastSeenData = await lastSeenCollection.findOne({ itemName: query.itemName });
         return {
           statusCode: 200,
           body: JSON.stringify(lastSeenData),
         };
 
       case 'POST':
-        // Handle update last seen time
+        // Handle update last seen time for a specific item
         const data = JSON.parse(event.body);
-        await lastSeenCollection.updateOne({}, { $set: { lastSeenDate: new Date(data.lastSeenDate) } }, { upsert: true });
+        if (!data.itemName || !data.lastSeenDate) {
+          return { statusCode: 400, body: 'Item name and last seen date are required' };
+        }
+        await lastSeenCollection.updateOne(
+          { itemName: data.itemName },
+          { $set: { lastSeenDate: new Date(data.lastSeenDate) } },
+          { upsert: true }
+        );
         return {
           statusCode: 200,
           body: JSON.stringify({ message: 'Last seen time updated' }),
