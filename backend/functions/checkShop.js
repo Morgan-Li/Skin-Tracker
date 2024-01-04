@@ -1,4 +1,5 @@
 const axios = require('axios');
+const nodemailer = require('nodemailer');
 
 exports.handler = async function(event, context) {
   const itemNameToCheck = 'Champion KYRA'; 
@@ -9,6 +10,7 @@ exports.handler = async function(event, context) {
     const itemFound = items.some(item => item.name.toLowerCase() === itemNameToCheck.toLowerCase());
 
     if (itemFound) {
+      await sendEmailAlert(itemNameToCheck);
       console.log(`Item found: ${itemNameToCheck}`);
     } else {
       console.log(`Item not found: ${itemNameToCheck}`);
@@ -29,3 +31,23 @@ exports.handler = async function(event, context) {
     };
   }
 };
+
+async function sendEmailAlert(itemName) {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: "me@gmail.com", 
+        pass: "cat" 
+      }
+    });
+  
+    const mailOptions = {
+      from: "me@gmail.com", 
+      to: 'morgan-li@example.com',
+      subject: `Fortnite Item Available: ${itemName}`, 
+      text: `The item "${itemName}" is now available in the shop!`, 
+      html: `<p>The item "<strong>${itemName}</strong>" is now available in the shop!</p>`
+    };
+  
+    await transporter.sendMail(mailOptions);
+  }
