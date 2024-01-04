@@ -1,5 +1,6 @@
 const axios = require('axios');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 exports.handler = async function(event, context) {
   const itemNameToCheck = 'Champion KYRA'; 
@@ -36,14 +37,14 @@ async function sendEmailAlert(itemName) {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: "me@gmail.com", 
-        pass: "cat" 
+        user: process.env.EMAIL_USERNAME, 
+        pass: process.env.EMAIL_PASSWORD  
       }
     });
   
     const mailOptions = {
-      from: "me@gmail.com", 
-      to: 'morgan-li@example.com',
+      from: process.env.EMAIL_USERNAME, 
+      to: 'recipient@example.com',
       subject: `Fortnite Item Available: ${itemName}`, 
       text: `The item "${itemName}" is now available in the shop!`, 
       html: `<p>The item "<strong>${itemName}</strong>" is now available in the shop!</p>`
