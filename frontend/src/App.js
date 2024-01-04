@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Timer from './components/Timer';
+import SubscriptionForm from './components/SubscriptionForm';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  const [lastSeen, setLastSeen] = useState('');
+
+  useEffect(() => {
+    const fetchLastSeen = async () => {
+      const response = await axios.get('/.netlify/functions/lastSeen?itemName=champion%20kyra');
+      setLastSeen(response.data.lastSeenDate);
+    };
+
+    fetchLastSeen();
+  }, []);
+
+  const handleSubscribe = async (email) => {
+    await axios.post('/.netlify/functions/subscribe', { email });
+  };
+
+  const handleUnsubscribe = async (email) => {
+    await axios.post('/.netlify/functions/unsubscribe', { email });
+
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Fortnite Item Tracker</h1>
+      <Timer lastSeen={lastSeen} />
+      <SubscriptionForm onSubscribe={handleSubscribe} onUnsubscribe={handleUnsubscribe} />
     </div>
   );
-}
+};
 
 export default App;
