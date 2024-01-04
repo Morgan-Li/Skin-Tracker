@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 exports.handler = async function(event, context) {
-  const itemNameToCheck = 'Champion KYRA'; 
+  const itemNameToCheck = 'Champion KYR'; 
 
   try {
     const response = await axios.get('https://fortnite-api.com/v2/shop/br');
@@ -11,7 +11,7 @@ exports.handler = async function(event, context) {
     const itemFound = items.some(item => item.name.toLowerCase() === itemNameToCheck.toLowerCase());
 
     if (itemFound) {
-      await sendEmailAlert(itemNameToCheck);
+      //await sendEmailAlert(itemNameToCheck);
       console.log(`Item found: ${itemNameToCheck}`);
     } else {
       console.log(`Item not found: ${itemNameToCheck}`);
