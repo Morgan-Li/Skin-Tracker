@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 exports.handler = async function(event, context) {
-  const itemNameToCheck = 'Champion KyrA'; 
+  const itemNameToCheck = 'Champion KYRA'; 
 
   try {
     const response = await axios.get('https://fortnite-api.com/v2/shop/br');
