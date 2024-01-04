@@ -8,7 +8,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 exports.handler = async function(event, context) {
   context.callbackWaitsForEmptyEventLoop = false;
-  const itemNameToCheck = 'Champion KYRA'.toLowerCase(); 
+  const itemNameToCheck = 'Champion KYR'.toLowerCase(); 
 
   try {
     await client.connect();
@@ -20,7 +20,7 @@ exports.handler = async function(event, context) {
     const itemFound = items.some(item => item.name.toLowerCase() === itemNameToCheck);
 
     if (itemFound) {
-      //await sendEmailAlert(itemNameToCheck);
+      await sendEmailAlert(itemNameToCheck, client);
       console.log(`Item found: ${itemNameToCheck}`);
 
       await lastSeenCollection.updateOne(
@@ -48,22 +48,32 @@ exports.handler = async function(event, context) {
   }
 };
 
-async function sendEmailAlert(itemName) {
+async function sendEmailAlert(itemName, client) {
+    // fetch the mailing list from the database
+    const database = client.db('Skin-Tracker');
+    const mailingListCollection = database.collection('Mailing-List');
+  
+    const subscribers = await mailingListCollection.find({}).toArray();
+    const recipientList = subscribers.map(subscriber => subscriber.email).join(',');
+  
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USERNAME, 
-        pass: process.env.EMAIL_PASSWORD  
-      }
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
     });
   
     const mailOptions = {
-      from: process.env.EMAIL_USERNAME, 
-      to: 'recipient@example.com',
-      subject: `Fortnite Item Available: ${itemName}`, 
-      text: `The item "${itemName}" is now available in the shop!`, 
-      html: `<p>The item "<strong>${itemName}</strong>" is now available in the shop!</p>`
+      from: process.env.EMAIL_USERNAME,
+      to: recipientList,  
+      subject: `Fortnite Item Available: ${itemName}`,
+      text: `The item "${itemName}" is now available in the shop!`,
+      html: `<p>The item "<strong>${itemName}</strong>" is now available in the shop!</p>`,
     };
   
-    await transporter.sendMail(mailOptions);
+    // only send the email if there are subscribers
+    if (recipientList) {
+      await transporter.sendMail(mailOptions);
+    }
   }
