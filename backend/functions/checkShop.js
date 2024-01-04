@@ -1,18 +1,33 @@
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const { MongoClient } = require('mongodb');
+
+const uri = process.env.MONGODB_ATLAS_CONNECTION;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 exports.handler = async function(event, context) {
-  const itemNameToCheck = 'Champion KYR'; 
+  context.callbackWaitsForEmptyEventLoop = false;
+  const itemNameToCheck = 'Champion KYRA'.toLowerCase(); 
 
   try {
+    await client.connect();
+    const database = client.db('Skin-Tracker');
+    const lastSeenCollection = database.collection('Last-Seen');
+
     const response = await axios.get('https://fortnite-api.com/v2/shop/br');
     const items = response.data.data.featured.entries.flatMap(entry => entry.items);
-    const itemFound = items.some(item => item.name.toLowerCase() === itemNameToCheck.toLowerCase());
+    const itemFound = items.some(item => item.name.toLowerCase() === itemNameToCheck);
 
     if (itemFound) {
       //await sendEmailAlert(itemNameToCheck);
       console.log(`Item found: ${itemNameToCheck}`);
+
+      await lastSeenCollection.updateOne(
+        { itemName: itemNameToCheck },
+        { $set: { lastSeenDate: new Date() } },
+        { upsert: true }
+      );
     } else {
       console.log(`Item not found: ${itemNameToCheck}`);
     }
