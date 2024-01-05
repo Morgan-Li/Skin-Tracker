@@ -4,7 +4,6 @@ const SubscriptionForm = ({ id, scrolled, onSubscribe, onUnsubscribe }) => {
   const [email, setEmail] = useState('');
   const [isValid, setIsValid] = useState(true);
 
-  // A simple regex for validating an email format
   const emailRegex = /\S+@\S+\.\S+/;
 
   const validateEmail = (email) => {

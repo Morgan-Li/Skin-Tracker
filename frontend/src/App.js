@@ -34,15 +34,16 @@ const App = () => {
 
   useEffect(() => {
     const fetchLastSeen = async () => {
+      const itemName = encodeURIComponent(process.env.REACT_APP_SKIN_TO_TRACK).toLowerCase(); 
       try {
-        const response = await axios.get('/.netlify/functions/lastSeen?itemName=champion%20kyra');
+        const response = await axios.get(`/.netlify/functions/lastSeen?itemName=${itemName}`);
         if (response.data.lastSeenDate) {
           setLastSeen(response.data.lastSeenDate);
         } else {
-          alert("Item's last seen time not found.");
+          alert(`Item's last seen time not found for ${itemName}.`);
         }
       } catch (error) {
-        alert('Failed to fetch the last seen time.');
+        alert(`Failed to fetch the last seen time for ${itemName}.`);
       }
     };
 

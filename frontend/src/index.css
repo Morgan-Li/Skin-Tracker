@@ -17,14 +17,14 @@ body {
   margin: 0;
   padding: 0;
   background: url('./Assets/chun-li-hd.jpg') no-repeat center center fixed; 
-  background-size: cover; /* Cover the entire viewport */
-  height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
+  background-size: cover; 
+  height: 100vh; 
+  width: 100vw;
 }
 
 @font-face {
   font-family: 'FontniteFont';
-  src: url('./fonts/Fortnite.ttf') format('truetype'); /* Adjust the path as necessary */
+  src: url('./fonts/Fortnite.ttf') format('truetype'); 
 }
 
 body {
@@ -44,22 +44,22 @@ body {
 .subscription-box {
   position: fixed;
   left: 50%;
-  bottom: -50vh; /* Adjust so half is offscreen */
+  bottom: -50vh; 
   transform: translateX(-50%) translateY(50%);
-  width: 100vw; /* Or the width you prefer */
-  height: 120vh; /* Make it tall enough to cut in half when half is offscreen */
+  width: 100vw; 
+  height: 120vh; 
   background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adjust the shadow to your preference */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
   transition: bottom 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  overflow: hidden; /* Ensure no child elements spill out of the semi-circle shape */
+  overflow: hidden; 
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the content horizontally */
+  align-items: center;
 }
 
 .subscription-box.scrolled {
-  bottom: 0; /* Adjust the position as you scroll */
-  box-shadow: 0 8px 1600px rgba(0, 0, 0, 0.9); /* Larger shadow for the scrolled state */
+  bottom: 0; 
+  box-shadow: 0 8px 1600px rgba(0, 0, 0, 0.9); 
 }
 
 mark.red {
@@ -88,36 +88,34 @@ mark.red {
 
 .subscription-box input,
 .subscription-box button {
-  /* Style your input fields and buttons */
-  margin: 0.5em; /* Spacing around the buttons */
-  /* Other styles for border, padding, etc. */
+  margin: 0.5em; 
 }
 
 .subscription-box input {
   margin: 0.5em;
-  padding: 1em; /* More padding for a bigger look */
-  border-radius: 10px; /* Rounded corners */
-  border: 2px solid #5e42a6; /* Purple border to match your gradient */
-  font-size: 16px; /* Larger font size for readability */
-  width: 40%; /* Adjust the width as needed */
+  padding: 1em; 
+  border-radius: 10px; 
+  border: 2px solid #5e42a6; 
+  font-size: 16px; 
+  width: 40%;
 }
 
 .subscription-box button {
   font-family: 'FontniteFont', sans-serif;
   margin: 0.5em;
-  padding: 1em; /* Padding for a taller button */
-  border: none; /* No border */
-  border-radius: 10px; /* Rounded corners */
-  background-image: linear-gradient(to right, #9c27b0, #673ab7); /* Purple gradient */
-  color: white; /* Text color */
-  font-size: 16px; /* Match input font size */
-  cursor: pointer; /* Hand cursor on hover */
-  transition: background-color 0.3s ease; /* Transition for the hover effect */
+  padding: 1em; 
+  border: none; 
+  border-radius: 10px; 
+  background-image: linear-gradient(to right, #9c27b0, #673ab7); 
+  color: white; 
+  font-size: 16px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
 }
 
 .subscription-box button:hover {
   font-family: 'FontniteFont', sans-serif;
-  background-image: linear-gradient(to right, #673ab7, #9c27b0); /* Slightly different gradient on hover */
+  background-image: linear-gradient(to right, #673ab7, #9c27b0); 
 }
 
 .down-arrow {
@@ -125,7 +123,7 @@ mark.red {
   bottom: 20px;
   right: 20px;
   cursor: pointer;
-  z-index: 5; /* Ensure the arrow is above other content */
+  z-index: 5; 
   width: 60px;
   height: 60px;
 }
@@ -134,8 +132,8 @@ mark.red {
   position: fixed;
   top: 20px;
   right: 20px;
-  width: 60px; /* Adjust the size as needed */
+  width: 60px; 
   height: 60px;
-  z-index: 5; /* Ensure it's above other content */
+  z-index: 5; 
   cursor: pointer;
 }

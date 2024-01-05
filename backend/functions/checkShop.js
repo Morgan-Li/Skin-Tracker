@@ -8,7 +8,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 exports.handler = async function(event, context) {
   context.callbackWaitsForEmptyEventLoop = false;
-  const itemNameToCheck = 'Champion KYR'.toLowerCase(); 
+  const itemNameToCheck = process.env.SKIN_TO_TRACK.toLowerCase(); 
 
   try {
     await client.connect();
