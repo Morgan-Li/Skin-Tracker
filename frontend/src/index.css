@@ -129,3 +129,13 @@ mark.red {
   width: 60px;
   height: 60px;
 }
+
+.github-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px; /* Adjust the size as needed */
+  height: 60px;
+  z-index: 5; /* Ensure it's above other content */
+  cursor: pointer;
+}

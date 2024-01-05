@@ -3,34 +3,32 @@ import Timer from './components/Timer';
 import SubscriptionForm from './components/SubscriptionForm';
 import axios from 'axios';
 import downArrow from './Assets/circle-arrow-down-solid.svg';
+import githubIcon from './Assets/github-icon.svg';
 
 const App = () => {
   const [lastSeen, setLastSeen] = useState('');
   const [scrolled, setScrolled] = useState(false);
 
   const scrollToForm = () => {
-    // Get the position of the subscription form
     const formElement = document.getElementById('subscription-form');
     if (formElement) {
       const formPosition = formElement.offsetTop;
       window.scrollTo({
-        top: formPosition, // Or some calculation based on formPosition
-        behavior: "smooth" // Smooth scroll
+        top: formPosition, 
+        behavior: "smooth" 
       });
-      setScrolled(true); // Update state as needed
+      setScrolled(true); 
     }
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.pageYOffset || document.documentElement.scrollTop;
-      setScrolled(offset > 50); // Set scrolled state based on the scroll position
+      setScrolled(offset > 50); 
     };
 
-    // Add the scroll event listener
     window.addEventListener('scroll', handleScroll);
 
-    // Clean up the event listener on component unmount
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -71,6 +69,16 @@ const App = () => {
 
   return (
     <div className="content-container">
+      <a href="https://github.com/Morgan-Li/Skin-Tracker" 
+        target="_blank" 
+        rel="noopener noreferrer"> 
+        <img
+          src={githubIcon}
+          className='github-icon'
+          alt="GitHub Repo"
+        />
+      </a>
+
       {!scrolled && (
         <img
           src={downArrow}
