@@ -2,17 +2,35 @@ import React, { useState } from 'react';
 
 const SubscriptionForm = ({ scrolled, onSubscribe, onUnsubscribe }) => {
   const [email, setEmail] = useState('');
+  const [isValid, setIsValid] = useState(true);
+
+  // A simple regex for validating an email format
+  const emailRegex = /\S+@\S+\.\S+/;
+
+  const validateEmail = (email) => {
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    setIsValid(validateEmail(newEmail));
+  };
 
   const handleSubscribe = (e) => {
     e.preventDefault();
-    onSubscribe(email);
-    setEmail('');
+    if (validateEmail(email)) {
+      onSubscribe(email);
+      setEmail('');
+    }
   };
 
   const handleUnsubscribe = (e) => {
     e.preventDefault();
-    onUnsubscribe(email);
-    setEmail('');
+    if (validateEmail(email)) {
+        onUnsubscribe(email);
+        setEmail('');
+    }
   };
 
   return (
@@ -25,12 +43,13 @@ const SubscriptionForm = ({ scrolled, onSubscribe, onUnsubscribe }) => {
             type="email"
             placeholder="Enter your email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             required
           />
-          <button onClick={handleSubscribe}>Subscribe</button>
-          <button onClick={handleUnsubscribe}>Unsubscribe</button>
+          <button onClick={handleSubscribe} disabled={!isValid}>Subscribe</button>
+          <button onClick={handleUnsubscribe} disabled={!isValid}>Unsubscribe</button>
         </form>
+        {!isValid && <div style={{ color: 'red'}}>Please input a valid email address</div>}
       </div>
     </div>
   );
