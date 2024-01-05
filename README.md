@@ -1,4 +1,6 @@
-# Item Shop Tracker
+# Fortnite Item Shop Tracker
+
+Live Demo: [https://itemshoptracker.netlify.app/](https://itemshoptracker.netlify.app/)
 
 ## Introduction
 
@@ -16,7 +18,7 @@ Fortnite Item Shop Tracker is a web application designed to help Fortnite player
 
 ## Scheduled API Requests with EasyCron
 
-This application requires daily checks of the Fortnite item shop to track item availability. To automate this process, we've utilized EasyCron, a reliable online cron job service, to schedule and trigger API requests to our Netlify serverless functions at a specific time every day.
+This application requires daily checks of the Fortnite item shop to track item availability. While Netlify's serverless functions are good for handling backend tasks, they lack built-in scheduling capabilities (atleast for free). And so to automate this process, we've utilized EasyCron, an online cron job service, to schedule and trigger API requests to our Netlify serverless functions at a specific time every day.
 
 ## Running Locally
 
@@ -94,7 +96,8 @@ This application uses MongoDB Atlas as a cloud database service to store and man
 
 1. **Start the Application:**
    - Ensure you are in the root of the `Skin-Tracker` directory.
-   - Run `netlify dev` to start both the frontend and backend with Netlify Dev.
+   - Run `netlify dev` to start the backend 
+   - Run `npm start` to start the frontend 
    - The application should open in your default browser, or you can navigate to the local address provided in the terminal.
 
 ### Using the Application
