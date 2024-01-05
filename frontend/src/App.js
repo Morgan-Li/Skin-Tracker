@@ -2,13 +2,26 @@ import React, { useState, useEffect } from 'react';
 import Timer from './components/Timer';
 import SubscriptionForm from './components/SubscriptionForm';
 import axios from 'axios';
+import downArrow from './Assets/circle-arrow-down-solid.svg';
 
 const App = () => {
   const [lastSeen, setLastSeen] = useState('');
   const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
+  const scrollToForm = () => {
+    // Get the position of the subscription form
+    const formElement = document.getElementById('subscription-form');
+    if (formElement) {
+      const formPosition = formElement.offsetTop;
+      window.scrollTo({
+        top: formPosition, // Or some calculation based on formPosition
+        behavior: "smooth" // Smooth scroll
+      });
+      setScrolled(true); // Update state as needed
+    }
+  };
 
+  useEffect(() => {
     const handleScroll = () => {
       const offset = window.pageYOffset || document.documentElement.scrollTop;
       setScrolled(offset > 50); // Set scrolled state based on the scroll position
@@ -58,8 +71,16 @@ const App = () => {
 
   return (
     <div className="content-container">
+      {!scrolled && (
+        <img
+          src={downArrow}
+          alt="Scroll down"
+          className="down-arrow"
+          onClick={scrollToForm}
+        />
+      )}
       <Timer lastSeen={lastSeen} />
-      <SubscriptionForm scrolled={scrolled} onSubscribe={handleSubscribe} onUnsubscribe={handleUnsubscribe} />
+      <SubscriptionForm id="subscription-form" scrolled={scrolled} onSubscribe={handleSubscribe} onUnsubscribe={handleUnsubscribe} />
     </div>
   );
 };
