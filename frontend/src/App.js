@@ -6,6 +6,21 @@ import axios from 'axios';
 const App = () => {
   const [lastSeen, setLastSeen] = useState('');
   const [message, setMessage] = useState(''); // For displaying feedback to the user
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+      const offset = window.pageYOffset || document.documentElement.scrollTop;
+      setScrolled(offset > 50); // Set scrolled state based on the scroll position
+    };
+
+    // Add the scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const fetchLastSeen = async () => {
@@ -43,11 +58,10 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Fortnite Item Tracker</h1>
+    <div className="content-container">
       {message && <p>{message}</p>} 
       <Timer lastSeen={lastSeen} />
-      <SubscriptionForm onSubscribe={handleSubscribe} onUnsubscribe={handleUnsubscribe} />
+      <SubscriptionForm scrolled={scrolled} onSubscribe={handleSubscribe} onUnsubscribe={handleUnsubscribe} />
     </div>
   );
 };

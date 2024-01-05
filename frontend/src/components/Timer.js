@@ -30,9 +30,9 @@ const Timer = ({ lastSeen }) => {
   }, [lastSeen]);
 
   return (
-    <div>
-      <p>Last seen: {lastSeen}</p>
-      <p>Time since last seen: {timeSinceLastSeen}</p>
+    <div className="timer-container">
+      <h1><mark className="red">Fortnite</mark> Skin Tracker </h1>
+      <h1>Time since last seen: <br></br> {timeSinceLastSeen}</h1>
     </div>
   );
 };

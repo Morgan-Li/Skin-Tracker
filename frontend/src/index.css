@@ -5,9 +5,85 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: url('../public/chun-li-hd.jpg') no-repeat center center fixed; 
+  background-size: cover; /* Cover the entire viewport */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+}
+
+@font-face {
+  font-family: 'FontniteFont';
+  src: url('../public/fonts/Fortnite.ttf') format('truetype'); /* Adjust the path as necessary */
+}
+
+body {
+  font-family: 'FontniteFont', sans-serif; /* Fallback to sans-serif if the custom font fails to load */
+  color: white;
+}
+
+.timer-container {
+  position: absolute;
+  left: 0;
+  top: 33%;
+  transform: translateY(-50%);
+  margin-left: 64px; 
+  font-size: 32px;
+}
+
+.subscription-box {
+  position: fixed;
+  left: 50%;
+  bottom: -50vh; /* Adjust so half is offscreen */
+  transform: translateX(-50%) translateY(50%);
+  width: 100vw; /* Or the width you prefer */
+  height: 120vh; /* Make it tall enough to cut in half when half is offscreen */
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adjust the shadow to your preference */
+  transition: bottom 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow: hidden; /* Ensure no child elements spill out of the semi-circle shape */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the content horizontally */
+}
+
+.subscription-box.scrolled {
+  bottom: 0; /* Adjust the position as you scroll */
+  box-shadow: 0 8px 1600px rgba(0, 0, 0, 0.9); /* Larger shadow for the scrolled state */
+}
+
+mark.red {
+  color: black;
+  background: none;
+}
+
+.content-container {
+  min-height: 110vh; 
+}
+
+.form-container {
+  padding: 1em;
+}
+
+.subscription-box input,
+.subscription-box button {
+  /* Style your input fields and buttons */
+  margin: 0.5em; /* Spacing around the buttons */
+  /* Other styles for border, padding, etc. */
+}
+
+#form-header {
+  font-size: 48px;
+  color: black;
+  margin-top: 0.5em;
 }
