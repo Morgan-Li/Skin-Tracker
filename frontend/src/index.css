@@ -38,7 +38,7 @@ body {
   top: 33%;
   transform: translateY(-50%);
   margin-left: 64px; 
-  font-size: 32px;
+  font-size: 24px;
 }
 
 .subscription-box {
@@ -73,16 +73,18 @@ mark.red {
 
 .form-container {
   padding: 1em;
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
 #form-header {
-  font-size: 48px;
+  font-size: 40px;
   color: black;
   margin-top: 0.5em;
 }
 
 #form-disclaimer {
-  font-size: 28px;
+  font-size: 26px;
   color: black;
 }
 
@@ -124,8 +126,8 @@ mark.red {
   right: 20px;
   cursor: pointer;
   z-index: 5; 
-  width: 60px;
-  height: 60px;
+  width: 45px;
+  height: 45px;
 }
 
 .github-icon {
