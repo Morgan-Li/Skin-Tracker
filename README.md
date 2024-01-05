@@ -18,7 +18,7 @@ Fortnite Item Shop Tracker is a web application designed to help Fortnite player
 
 ## Scheduled API Requests with EasyCron
 
-This application requires daily checks of the Fortnite item shop to track item availability. While Netlify's serverless functions are good for handling backend tasks, they lack built-in scheduling capabilities (atleast for free). And so to automate this process, we've utilized EasyCron, an online cron job service, to schedule and trigger API requests to our Netlify serverless functions at a specific time every day.
+This application requires daily checks of the Fortnite item shop to track item availability. While Netlify's serverless functions are good for handling backend tasks, they lack built-in scheduling capabilities (atleast for free). And so to automate this process, I utilized EasyCron, an online (free) cron job service, to schedule and trigger API requests to the Netlify serverless functions at 7:05PM EST time every day.
 
 ## Running Locally
 
@@ -29,7 +29,7 @@ Before you begin, ensure you have the following installed:
 - Netlify CLI (`npm install netlify-cli -g`)
 - Git (for cloning the repository)
 
-## Database Setup with MongoDB Atlas
+### Database Setup with MongoDB Atlas
 
 This application uses MongoDB Atlas as a cloud database service to store and manage data, specifically for tracking item availability and managing the subscription list. Before running the application locally or deploying it, you need to set up a MongoDB Atlas cluster and obtain a connection string.
 
@@ -87,7 +87,7 @@ This application uses MongoDB Atlas as a cloud database service to store and man
    
 3. **Configure Schedule:**
    - Set the cron job to send a request at 7 PM EST every day. This aligns with the time Fortnite typically updates its item shop.
-   - The expression for this schedule in cron format would be `0 19 * * *` if you're targeting 7 PM EST, considering any timezone adjustments.
+   - The expression for this schedule in cron format would be `0 19 * * *` if you're targeting 7 PM EST (I like to add a small buffer of 5 minutes just incase the API needs time to update), considering any timezone adjustments.
 
 4. **Target Netlify Function:**
    - The URL for the cron job should be the endpoint for the Netlify function responsible for checking the item shop. It would typically look something like this: `https://your-netlify-domain.netlify.app/.netlify/functions/checkShop`
