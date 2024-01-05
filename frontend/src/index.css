@@ -75,6 +75,17 @@ mark.red {
   padding: 1em;
 }
 
+#form-header {
+  font-size: 48px;
+  color: black;
+  margin-top: 0.5em;
+}
+
+#form-disclaimer {
+  font-size: 28px;
+  color: black;
+}
+
 .subscription-box input,
 .subscription-box button {
   /* Style your input fields and buttons */
@@ -82,8 +93,29 @@ mark.red {
   /* Other styles for border, padding, etc. */
 }
 
-#form-header {
-  font-size: 48px;
-  color: black;
-  margin-top: 0.5em;
+.subscription-box input {
+  margin: 0.5em;
+  padding: 1em; /* More padding for a bigger look */
+  border-radius: 10px; /* Rounded corners */
+  border: 2px solid #5e42a6; /* Purple border to match your gradient */
+  font-size: 16px; /* Larger font size for readability */
+  width: 40%; /* Adjust the width as needed */
+}
+
+.subscription-box button {
+  font-family: 'FontniteFont', sans-serif;
+  margin: 0.5em;
+  padding: 1em; /* Padding for a taller button */
+  border: none; /* No border */
+  border-radius: 10px; /* Rounded corners */
+  background-image: linear-gradient(to right, #9c27b0, #673ab7); /* Purple gradient */
+  color: white; /* Text color */
+  font-size: 16px; /* Match input font size */
+  cursor: pointer; /* Hand cursor on hover */
+  transition: background-color 0.3s ease; /* Transition for the hover effect */
+}
+
+.subscription-box button:hover {
+  font-family: 'FontniteFont', sans-serif;
+  background-image: linear-gradient(to right, #673ab7, #9c27b0); /* Slightly different gradient on hover */
 }

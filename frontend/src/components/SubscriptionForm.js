@@ -19,6 +19,7 @@ const SubscriptionForm = ({ scrolled, onSubscribe, onUnsubscribe }) => {
     <div className={`subscription-box ${scrolled ? 'scrolled' : ''}`}>
       <div className="form-container"> 
         <h1 id="form-header">Join our mailing list!</h1>
+        <h4 id="form-disclaimer"> Subscribe to our mailing list to be notified via email as soon as your favourite skin (Chun-Li) appears in the shop! </h4>
         <form>
           <input
             type="email"
