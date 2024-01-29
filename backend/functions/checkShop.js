@@ -49,31 +49,33 @@ exports.handler = async function(event, context) {
 };
 
 async function sendEmailAlert(itemName, client) {
-    // fetch the mailing list from the database
-    const database = client.db('Skin-Tracker');
-    const mailingListCollection = database.collection('Mailing-List');
-  
-    const subscribers = await mailingListCollection.find({}).toArray();
-    const recipientList = subscribers.map(subscriber => subscriber.email).join(',');
-  
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-  
+  // fetch the mailing list from the database
+  const database = client.db('Skin-Tracker');
+  const mailingListCollection = database.collection('Mailing-List');
+
+  const subscribers = await mailingListCollection.find({}).toArray();
+
+  // Send an email to each subscriber individually
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  subscribers.forEach(async (subscriber) => {
+    const unsubscribeLink = `https://itemshoptracker.netlify.app/.netlify/functions/unsubscribe?email=${encodeURIComponent(subscriber.email)}`;
+
     const mailOptions = {
       from: process.env.EMAIL_USERNAME,
-      to: recipientList,  
+      to: subscriber.email, 
       subject: `Fortnite Item Available: ${itemName}`,
-      text: `The item "${itemName}" is now available in the shop!`,
-      html: `<p>The item "<strong>${itemName}</strong>" is now available in the shop!</p>`,
+      text: `The item "${itemName}" is now available in the shop!\n\nIf you no longer wish to receive these emails, you can unsubscribe at any time by clicking the link below:\n${unsubscribeLink}`,
+      html: `<p>The item "<strong>${itemName}</strong>" is now available in the shop!</p><p>If you no longer wish to receive these emails, you can <a href="${unsubscribeLink}">unsubscribe</a> at any time.</p>`,
     };
-  
-    // only send the email if there are subscribers
-    if (recipientList) {
-      await transporter.sendMail(mailOptions);
-    }
-  }
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+  });
+}
